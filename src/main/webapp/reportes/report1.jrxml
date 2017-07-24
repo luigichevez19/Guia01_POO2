@@ -3,53 +3,30 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="Unidad" class="java.lang.String">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
 	<queryString>
-		<![CDATA[select * from visi]]>
+		<![CDATA[select v.CODI_VISI,u.CODI_USUA,p.NOMB_PERS,p.APEL_PERS,v.FECH_HORA_ENTR_VISI,v.FECH_HORA_SALI_VISI from visi v
+ inner join usua u on v.CODI_USUA=u.CODI_USUA inner join pers p on p.CODI_PERS=u.CODI_PERS where v.CODI_UNID_ORGA_VISI=$P{Unidad};]]>
 	</queryString>
 	<field name="CODI_VISI" class="java.lang.Long">
 		<fieldDescription><![CDATA[CODIGO DE LA VISITA]]></fieldDescription>
 	</field>
 	<field name="CODI_USUA" class="java.lang.Long">
-		<fieldDescription><![CDATA[USUARIO QUE REGISTRA LA VISITA]]></fieldDescription>
-	</field>
-	<field name="CODI_PERS" class="java.lang.Long">
-		<fieldDescription><![CDATA[PERSONA QUE HACE LA VISITA]]></fieldDescription>
-	</field>
-	<field name="CODI_PERS_VISI" class="java.lang.Long">
-		<fieldDescription><![CDATA[EMPLEADO QUE RECIBE LA VISITA]]></fieldDescription>
-	</field>
-	<field name="CODI_UNID_ORGA_VISI" class="java.lang.Long">
-		<fieldDescription><![CDATA[UNIDAD ORGANIZATIVA QUE RECIBE LA VISITA]]></fieldDescription>
-	</field>
-	<field name="CODI_TIPO_DOCU" class="java.lang.Long">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="CODI_GAFE" class="java.lang.Long">
-		<fieldDescription><![CDATA[CODIGO DEL GAFETE QUE LO IDENTIFICA]]></fieldDescription>
+	<field name="NOMB_PERS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="CODI_LUGA_ENTR" class="java.lang.Long">
-		<fieldDescription><![CDATA[CODIGO DEL LUGAR DE ACCESO A LA VISITA]]></fieldDescription>
-	</field>
-	<field name="CODI_LUGA_SALI" class="java.lang.Long">
-		<fieldDescription><![CDATA[CODIGO DEL LUGAR DONDE SALE LA VISITA]]></fieldDescription>
+	<field name="APEL_PERS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="FECH_HORA_ENTR_VISI" class="java.sql.Timestamp">
 		<fieldDescription><![CDATA[FECHA Y HORA DE LA ENTRADA DE VISITA]]></fieldDescription>
 	</field>
 	<field name="FECH_HORA_SALI_VISI" class="java.sql.Timestamp">
 		<fieldDescription><![CDATA[FECHA Y HORA DE LA SALIDA DE VISITA]]></fieldDescription>
-	</field>
-	<field name="MOTI_VISI" class="java.lang.String">
-		<fieldDescription><![CDATA[MOTIVO DE LA VISITA]]></fieldDescription>
-	</field>
-	<field name="FECH_ALTA" class="java.sql.Timestamp">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="FECH_BAJA" class="java.sql.Timestamp">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="ESTA" class="java.lang.Object">
-		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<group name="Group2">
 		<groupFooter>
@@ -60,8 +37,28 @@
 		<groupHeader>
 			<band height="39">
 				<staticText>
-					<reportElement x="54" y="0" width="100" height="20" uuid="d57bd8af-8442-442f-adb6-351fdf2aaf69"/>
+					<reportElement x="0" y="0" width="53" height="20" uuid="d57bd8af-8442-442f-adb6-351fdf2aaf69"/>
 					<text><![CDATA[CODIGO DE LA VISITA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="63" y="0" width="48" height="20" uuid="85d96f8a-b96f-4144-af04-5665cf0ab38b"/>
+					<text><![CDATA[#Usuario]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="134" y="0" width="100" height="20" uuid="2923c874-9dd1-4e66-bf50-8d195d62ca49"/>
+					<text><![CDATA[Nombres]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="253" y="0" width="100" height="20" uuid="750f6875-a137-404a-b8d1-c8fb6637a99a"/>
+					<text><![CDATA[Apellidos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="363" y="0" width="100" height="20" uuid="0fb1d8f6-6668-4f84-97a7-be8ec5f6422d"/>
+					<text><![CDATA[Entrada]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="463" y="0" width="100" height="20" uuid="95caf87b-e0e3-4606-b67c-e8a4ed267eef"/>
+					<text><![CDATA[Salidad]]></text>
 				</staticText>
 			</band>
 		</groupHeader>
@@ -87,7 +84,7 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="52"/>
+		<band height="55"/>
 	</pageHeader>
 	<detail>
 		<band height="63">
@@ -95,8 +92,28 @@
 				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="43b5220f-b957-4aeb-8a0d-85497cf30883"/>
 			</line>
 			<textField>
-				<reportElement x="30" y="20" width="100" height="20" uuid="e01084bd-519c-44df-8f65-9fa4ff59f5a5"/>
+				<reportElement x="0" y="19" width="36" height="20" uuid="e01084bd-519c-44df-8f65-9fa4ff59f5a5"/>
 				<textFieldExpression><![CDATA[$F{CODI_VISI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="63" y="20" width="48" height="20" uuid="560ae77a-7a5a-4621-a493-93be06f59a5e"/>
+				<textFieldExpression><![CDATA[$F{CODI_USUA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="134" y="19" width="100" height="20" uuid="3135e04f-84a8-42c4-8908-3591614c627b"/>
+				<textFieldExpression><![CDATA[$F{NOMB_PERS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="253" y="19" width="100" height="20" uuid="7e74d1b3-2ea2-4766-b945-87442b2e5f4f"/>
+				<textFieldExpression><![CDATA[$F{APEL_PERS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="363" y="19" width="100" height="20" uuid="602e5bdb-5b59-479b-a01b-629c80f11abd"/>
+				<textFieldExpression><![CDATA[$F{FECH_HORA_ENTR_VISI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="463" y="20" width="100" height="20" uuid="c4ac4953-5138-412b-9a6b-eebad54e4f97"/>
+				<textFieldExpression><![CDATA[$F{FECH_HORA_SALI_VISI}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

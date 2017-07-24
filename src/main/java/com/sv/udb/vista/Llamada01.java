@@ -12,7 +12,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -42,37 +46,44 @@ public class Llamada01 extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String salida;
+       String salida;
         ServletOutputStream out = response.getOutputStream();
-        try 
-        {
+        try {
             Connection cn = new Conexion().getConn();
             Map params = request.getParameterMap();
-            for(Object temp: params.entrySet())
+            Map parametros = new HashMap();
+            String reporte = "";
+            for(Entry temp : (Set<Entry>)params.entrySet())
             {
-               System.err.println("Params"+ temp);
+                if(temp.getKey().equals("nombRepo"))
+                {
+                    //Concatenación
+                    reporte = String.format("%s.jasper", request.getParameter(String.valueOf(temp.getKey())));
+                }
+                else
+                {
+                    parametros.put(temp.getKey(), request.getParameter(String.valueOf(temp.getKey())));
+                }
             }
-            Map parametros = null;
-            String nombre = "report1.jasper";
             byte[] bytes = null;
-            String UrlRepor = getServletContext().getRealPath("/reportes/"+ nombre);
+            String urlreporte = getServletContext().getRealPath("/reportes/" + reporte);
             try 
             {
-               bytes =  JasperRunManager.runReportToPdf(UrlRepor, parametros,cn);
-               response.setContentType("application/pdf");
-               response.setHeader("content-Disposition", "inline; filename=permiso.pdf");
-               response.setContentLength(bytes.length);
-               out.write(bytes,0,bytes.length);
-               out.flush();
-               out.close();
+                bytes = JasperRunManager.runReportToPdf(urlreporte, parametros, cn);
+                response.setContentType("application/pdf");
+                response.setHeader("Content-Disposition", "inline; filename=permiso.pdf");
+                response.setContentLength(bytes.length);
+                out.write(bytes, 0, bytes.length);
+                out.flush();
+                out.close();
             }
             catch (JRException e) 
             {
-                StringWriter stringwriter = new StringWriter();
-                PrintWriter printwriter = new PrintWriter(stringwriter);
-                e.printStackTrace(printwriter);
+                StringWriter stringWriter = new StringWriter();
+                PrintWriter printWriter = new PrintWriter(stringWriter);
+                e.printStackTrace(printWriter);
                 response.setContentType("text/plain");
-                response.getOutputStream().print(stringwriter.toString());
+                response.getOutputStream().print(stringWriter.toString());
             }
             finally
             {
@@ -81,10 +92,11 @@ public class Llamada01 extends HttpServlet {
                     cn.close();
                 }
             }
-        }
-        catch (Exception e) 
+        } 
+        catch (SQLException | IOException e) 
         {
-        
+            salida = "Error generando Reporte Jasper, el error del Sistema es " + e;
+            System.out.println(salida);
         }
         
         
