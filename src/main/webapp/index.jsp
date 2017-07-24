@@ -50,7 +50,7 @@ de X persona, así como la unidad organizativa que ha visitado</h3>
                    <div class="span3 well">
             <center>
                 <a href="#" id="testBtonParams" data-ctxt="${pageContext.request.contextPath}"
-                   data-repo="report3" data-prms="fecha1=20017/02/22">
+                   data-repo="report3" data-prms="fecha1=2017/02/22">
                     <img src="https://positivepsychologyprogram.com/wp-content/uploads/2014/10/download-as-pdf.png" 
                          name="pdf" width="140" height="140" class="img-circle"></a>
                 <h3>Reporte de visitas de cada unidad organizativa por rango de fechas</h3>
