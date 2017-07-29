@@ -11,8 +11,7 @@
 	</parameter>
 	<queryString>
 		<![CDATA[Select l.NOMB_LUGA_ACCE,p.NOMB_PERS,p.APEL_PERS, v.FECH_HORA_ENTR_VISI,v.FECH_HORA_SALI_VISI from luga_acce l inner join
-visi v on  v.CODI_LUGA_ENTR = l.CODI_LUGA_ACCE inner join pers p on p.CODI_PERS = v.CODI_PERS where p.NOMB_PERS = $P{nombre}
-]]>
+visi v on  v.CODI_LUGA_ENTR = l.CODI_LUGA_ACCE inner join pers p on p.CODI_PERS = v.CODI_PERS where p.NOMB_PERS = $P{nombre} and p.APEL_PERS=$P{apellido}]]>
 	</queryString>
 	<field name="NOMB_LUGA_ACCE" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>

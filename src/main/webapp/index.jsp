@@ -40,7 +40,7 @@
         <div class="span3 well">
             <center>
                 <a href="#" id="testBtonParams" data-ctxt="${pageContext.request.contextPath}"
-                   data-repo="report2" data-prms="Nombre=Luis Armando">
+                   data-repo="report2" data-prms="nombre=Luis&apellido=Chevez">
                     <img src="https://positivepsychologyprogram.com/wp-content/uploads/2014/10/download-as-pdf.png" 
                          name="pdf" width="140" height="140" class="img-circle"></a>
                 <h3>Reporte de lugar, fecha y hora de acceso y salida 
